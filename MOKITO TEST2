@@ -44,7 +44,7 @@ List<String> spy = spy(list);
     
     
     
-// Case1
+// Case1.
     @Test  
     public void spyTest() {  
         Jack spyJack = spy(new Jack());  
@@ -55,45 +55,49 @@ List<String> spy = spy(list);
       
     class Jack {  
         public boolean say() {  
-            System.out.println("I say go go go!!");  // 注意!!
+            System.out.println("我不是烏拉拉!!");  // 注意!!
             return true;  
         }  
     }  
     
     
-    
+// Case2.    
+import org.junit.Test;
+import static org.mockito.Mockito.*;
+
+public class CallMethodDemo {
     @Test  
     public void callRealMethodTest() {  
-        Jerry jerry = mock(Jerry.class);  
+        Jana jana = mock(jana.class);  
       
-        doCallRealMethod().when(jerry).goHome();  
-        doCallRealMethod().when(jerry).doSomeThingB();  
+        doCallRealMethod().when(jana).goFight();  
+        doCallRealMethod().when(jana).doSomeThingB();  
       
-        jerry.goHome();  
+        jana.goFight();  
       
-        verify(jerry).doSomeThingA();  
-        verify(jerry).doSomeThingB();  
+        verify(jana).doSomeThingA();  
+        verify(jana).doSomeThingB();  
     }  
-      
-    class Jerry {  
-        public void goHome() {  
-            doSomeThingA();  
-            doSomeThingB();  
-        }  
-      
-        // real invoke it.  
-        public void doSomeThingB() {  
-            System.out.println("good day");  
-      
-        }  
-      
-        // auto mock method by mockito  
-        public void doSomeThingA() {  
-            System.out.println("you should not see this message.");  
-      
-        }  
-    }  
+}
 
+class Jana {  
+    public void goFight() {  
+        doSomeThingA();  
+        doSomeThingB();  
+    }  
+  
+    // real invoke it.  
+    public void doSomeThingB() {  
+        System.out.println("火球樹");  
+  
+    }  
+  
+    // auto mock method by mockito  
+    public void doSomeThingA() {  
+        System.out.println("寒冰箭");  
+  
+    }  
+}
 
 
 
