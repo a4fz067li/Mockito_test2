@@ -1,3 +1,31 @@
+// STEP1.  MOCK
+Calculate cal = mock(Calculate.class);
+Assert.assertEquals(0, cal.add(0, 1));  
+
+
+// STEP2.  stub
+Calculate cal = mock(Calculate.class);
+when(cal.add(0, 1)).thenReturn(1);
+Assert.assertEquals(1, cal.add(0, 1));
+
+
+// STEP3.  SPY
+Calculate cal = spy(Calculate.class);
+Assert.assertEquals(3, cal.add(1, 2));
+when(cal.add(1, 2)).thenReturn(0);
+Assert.assertEquals(0, cal.add(1, 2));
+
+// STEP4. Verify
+Calculate cal = spy(Calculate.class);
+Assert.assertEquals(3, cal.add(1, 2));
+when(cal.add(1, 2)).thenReturn(0);
+Assert.assertEquals(0, cal.add(1, 2));
+verify(cal).add(1, 2); 
+
+
+////////////////
+
+
 List<String> list = new LinkedList<String>();  
 List<String> spy = spy(list);  
 
@@ -9,19 +37,25 @@ List<String> spy = spy(list);
     assertEquals(spy.get(0), "one");  
     assertEquals(100, spy.size());  
     
+    /*  
+        spy的原理是，如果不做STUB方法則默認會執行真實的方法，若有，則返回STUB預定值。
+        可以看出spy.size()通過STUB實現方法，返回了值100，而spy.get(0)則返回實際值。
+    */
     
     
+    
+// Case1
     @Test  
     public void spyTest() {  
         Jack spyJack = spy(new Jack());  
-        when(spyJack.go()).thenReturn(false);  
+        when(spyJack.say()).thenReturn(false);  
       
         assertFalse(spyJack.go());  
     }  
       
     class Jack {  
-        public boolean go() {  
-            System.out.println("I say go go go!!");  
+        public boolean say() {  
+            System.out.println("I say go go go!!");  // 注意!!
             return true;  
         }  
     }  
