@@ -59,3 +59,31 @@ List<String> spy = spy(list);
       
         }  
     }  
+
+
+
+
+/////////////////////////
+
+
+final List<String> list = mock(List.class); //list中包含的是字串
+
+when(list.get(0)).thenReturn("33");     //1.先指定物件，再來是method,最後是回傳值，較符合直覺。
+                                        //2.當回傳值不是字串的33時，IDE就會出現紅線提示錯誤了(type-safety)。
+doReturn(33).when(list).get(0);         //這裡回傳值為數字的33，但IDE卻沒出現錯誤；表示此API沒進行type-safety的檢查。
+
+
+//
+
+final List list = spy(new LinkedList());
+ 
+when(spy.get(0)).thenReturn("foo");    //這一行會產生IndexOutOfBoundsException，因為list是空的但卻去拿資料  
+doReturn("foo").when(spy).get(0);    //這行就能正常執行，因為doReturn不會真的去呼叫stubbing method
+
+//
+
+final List list = mock(List.class);
+when(list.get(0)).thenThrow(new RuntimeException());
+when(list.get(0)).thenReturn("bar");  //無法覆寫，這裡會丟出RuntimeException
+ 
+doReturn("bar").when(list).get(0);    //用doReturn才有辦法覆寫
