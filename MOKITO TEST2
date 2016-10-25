@@ -54,6 +54,7 @@ List<String> spy = spy(list);
         
         
         assertFalse(spyJack.say());  
+   
     }  
       
     class Jack {  
