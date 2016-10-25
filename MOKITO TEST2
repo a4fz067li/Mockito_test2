@@ -1,0 +1,60 @@
+    List<String> list = new LinkedList<String>();  
+    List<String> spy = spy(list);  
+    when(spy.size()).thenReturn(100);  
+      
+    spy.add("one");  
+    spy.add("two");  
+      
+    assertEquals(spy.get(0), "one");  
+    assertEquals(100, spy.size());  
+    
+    
+    
+    @Test  
+    public void spyTest() {  
+        Jack spyJack = spy(new Jack());  
+        when(spyJack.go()).thenReturn(false);  
+      
+        assertFalse(spyJack.go());  
+    }  
+      
+    class Jack {  
+        public boolean go() {  
+            System.out.println("I say go go go!!");  
+            return true;  
+        }  
+    }  
+    
+    
+    
+    @Test  
+    public void callRealMethodTest() {  
+        Jerry jerry = mock(Jerry.class);  
+      
+        doCallRealMethod().when(jerry).goHome();  
+        doCallRealMethod().when(jerry).doSomeThingB();  
+      
+        jerry.goHome();  
+      
+        verify(jerry).doSomeThingA();  
+        verify(jerry).doSomeThingB();  
+    }  
+      
+    class Jerry {  
+        public void goHome() {  
+            doSomeThingA();  
+            doSomeThingB();  
+        }  
+      
+        // real invoke it.  
+        public void doSomeThingB() {  
+            System.out.println("good day");  
+      
+        }  
+      
+        // auto mock method by mockito  
+        public void doSomeThingA() {  
+            System.out.println("you should not see this message.");  
+      
+        }  
+    }  
