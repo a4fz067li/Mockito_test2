@@ -1,5 +1,6 @@
-    List<String> list = new LinkedList<String>();  
-    List<String> spy = spy(list);  
+List<String> list = new LinkedList<String>();  
+List<String> spy = spy(list);  
+
     when(spy.size()).thenReturn(100);  
       
     spy.add("one");  
